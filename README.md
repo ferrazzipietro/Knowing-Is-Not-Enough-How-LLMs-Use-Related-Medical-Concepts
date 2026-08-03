@@ -17,6 +17,7 @@ This repository evaluates instruction-tuned language models on clinical-note inf
 ├── src/
 │   ├── prompt.py                    # Three system-prompt variants
 │   └── training/                    # Dataset, model, trainer, and metric utilities
+├── pairs_correlation/              # Related-item correlation analysis and diagnostics
 ├── e_zero_shot.py                   # Main zero-shot evaluation entry point
 ├── e_zero_shot_seeting_0_1_2.sh     # Example launcher for Settings 0–2
 ├── e_zero_shot_setting_3.sh         # Example launcher for Setting 3
@@ -47,7 +48,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 # Install the appropriate PyTorch build first: https://pytorch.org/get-started/locally/
-pip install transformers datasets evaluate accelerate peft python-dotenv huggingface-hub numpy tqdm scikit-learn
+pip install transformers datasets evaluate accelerate peft python-dotenv huggingface-hub numpy tqdm scikit-learn pandas scipy matplotlib seaborn openpyxl
 ```
 
 Some models may additionally require `flash-attn`, `sentencepiece`, or model-specific dependencies. Flash Attention is disabled by default in `e_zero_shot.py`.
@@ -143,6 +144,31 @@ python summarize_zero_shot.py \
 ```
 
 Use `--skip-model MODEL_DIRECTORY_NAME` more than once to omit selected models.
+
+## Computing related-item correlations
+
+The scripts in `pairs_correlation/` identify related CRF item-value pairs from the annotated training notes. `correlation_matrix.py` represents every `(item, value)` as a binary variable and ranks pairs by the absolute phi coefficient. Items that allow repeated measurements are split into `[first]` and `[following]` pseudo-items; missing annotations are represented as `__unknown__`.
+
+The script currently reads the schema and training annotations from the paths configured near the top of `pairs_correlation/correlation_matrix.py`. Point `SCHEMA_PATH`, `DATA_PATH`, and `OUT_DIR` to the corresponding local files, then run from the repository root:
+
+```bash
+python pairs_correlation/correlation_matrix.py \
+  --min_phi 0.3 \
+  --max_p 0.05 \
+  --n_bins 5 \
+  --min_support 10 \
+  --min_cooccurrence 5 \
+  --save_full
+```
+
+The analysis writes the filtered pairs to `correlation_pairs_n_bins_<n>.xlsx`, an optional unfiltered table to `correlation_pairs_full.xlsx`, and a heatmap of the highest-ranked pairs to `correlation_heatmap.png`. Additional controls include `--group_filter {all,same,cross}`, `--unknown_filter {none,both,all}`, and `--top_k`.
+
+The directory also contains supporting diagnostics:
+
+- `sweep_correlation_params.py` measures how the selected pair set changes across correlation thresholds, support requirements, and numeric bin counts;
+- `check_binnable_types.py` and `check_numeric_sparsity.py` explain whether numeric binning can affect the selected items;
+- `analyse_unknown_by_position.py` checks whether `unknown` predictions become more frequent later in long structured generations;
+- `sanity_check_train.py` evaluates the correlation-consistency scorer on the training labels and requires the scorer and its generated correlation workbook.
 
 ## Reproducibility notes
 
