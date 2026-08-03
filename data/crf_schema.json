@@ -1,0 +1,751 @@
+{
+  "ARDS or Respiratory failure": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Ab ingestis pneumonia": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Abdomen CT scan, any abnormality": {
+    "type": "YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Acute coronary syndrome": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Acute pulmonary edema": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Administration of bronchodilators": {
+    "type": "YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Administration of diuretics": {
+    "type": "YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Administration of fluids": {
+    "type": "number_or_YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Administration of oxygen/ventilation": {
+    "type": "number_or_YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Administration of steroids": {
+    "type": "YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Agitation (acute condition)": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Anticoagulants or antiplatelet drug therapy": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Antiepileptic therapy already in place": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Antihypertensive therapy": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Aortic dissection": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Arrhythmia": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Asthma exacerbation": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Blood alcohol level": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood calcium": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood drug dosage": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood glucose": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood in the stool": {
+    "type": "number_or_category",
+    "values": [
+      "NEG",
+      "POS"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Blood potassium": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood sodium": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Blood transfusions": {
+    "type": "YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Body temperature": {
+    "type": "number_or_category",
+    "values": [
+      "hyperthermic",
+      "hypothermic",
+      "normothermic"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Brain CT scan, any abnormality": {
+    "type": "number_or_YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Brain MRI, any abnormality": {
+    "type": "YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "C-Reactive Protein": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "COPD exacerbation": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "COVID 19": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Cardiac ultrasound, any abnormality": {
+    "type": "number_or_YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Cardio-pulmonary resuscitation": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Cardiovascular diseases (except for HF)": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Cardiovascular failure": {
+    "type": "category",
+    "values": [
+      "acute",
+      "chronic"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Carotid sinus massage": {
+    "type": "number_or_category",
+    "values": [
+      "NEG",
+      "POS"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Chest CT scan, any abnormality": {
+    "type": "YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Chest Rx, any abnormality": {
+    "type": "number_or_YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Chest pain": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Chronic dialysis": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Chronic rheumatologic disease": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Compliance with antiepileptic therapy": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Compression ultrasound (CUS), any abnormality": {
+    "type": "YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Concussive head trauma": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Creatinine": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "D-Dimer": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Dementia (chronic condition)": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Diffuse vascular disease": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Drooling during the episode": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Drowsiness, confusion, disorientation as postcritical state": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Duration of the patient's unconsciousness": {
+    "type": "category",
+    "values": [
+      "long (minutes-hours)",
+      "short (seconds)"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "ECG monitoring, any abnormality": {
+    "type": "YN",
+    "group": "Diagresults",
+    "allow_followup": false
+  },
+  "ECG, any abnormality": {
+    "type": "number_or_YN",
+    "group": "Diagresults",
+    "allow_followup": false
+  },
+  "EEG, any abnormality": {
+    "type": "YN",
+    "group": "Diagresults",
+    "allow_followup": false
+  },
+  "Epilepsy / epileptic seizure": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Eye deviation during the episode": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Foreign body in the airways": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Further seizures in the ED": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Gastroscopy, any abnormality": {
+    "type": "number_or_YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "General condition deterioration": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "HCO3-": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Heart Rate": {
+    "type": "number_or_category",
+    "values": [
+      "bradycardic",
+      "normocardic",
+      "tachycardic"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Heart failure": {
+    "type": "number_or_YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Hemoglobin": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Hemorrhage": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "History of alcohol abuse": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "History of drug abuse": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "History of drug allergy": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "History of epilepsy": {
+    "type": "number_or_category",
+    "values": [
+      "first episode",
+      "non first episode"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Homelessness": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "INR": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Immunosuppression (e.g., iatrogenic, oncology, viral, autoimmune)": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Improvement of dyspnea during ED visit": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Improvement of patient's conditions during ED visit": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Influenza or various infections": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Intoxication": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Lactates": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Leukocytes": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Level of autonomy (mobility)": {
+    "type": "number_or_category",
+    "values": [
+      "bedridden",
+      "walking independently",
+      "walking with auxiliary aids",
+      "walking with physical assistance"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Level of consciousness": {
+    "type": "number_or_category",
+    "values": [
+      "A",
+      "P",
+      "U",
+      "V"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Level of consciousness (GCS)": {
+    "type": "number_or_YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Living alone": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Metabolic failure": {
+    "type": "category",
+    "values": [
+      "chronic",
+      "acute"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Need but absence of a caregiver": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Neoplasia": {
+    "type": "category",
+    "values": [
+      "certainly active",
+      "likely non-active",
+      "non-active"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Neurodegenerative diseases": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Neurologist consultation requested": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Neuropsychiatric disorders": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "PaCO2": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "PaO2": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Pale skin during the episode": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Palliative care (already in place at home)": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Performance of thoracentesis": {
+    "type": "YN",
+    "group": "Treatment",
+    "allow_followup": false
+  },
+  "Peripheral neuropathy": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Platelets": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Pneumonia": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Pneumothorax": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Poly-pharmacological therapy (>= 5)": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Pregnancy": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Presence of defibrillator": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Presence of dyspnea": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Presence of pacemaker": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Presence of prodromal symptoms": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Presence of respiratory distress": {
+    "type": "category",
+    "values": [
+      "current",
+      "past"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Problematic family context": {
+    "type": "number_or_YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Pulmonary Disease": {
+    "type": "category",
+    "values": [
+      "acute",
+      "chronic"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Pulmonary embolism": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Pulmonary scintigraphy, any abnormality": {
+    "type": "YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Renal failure": {
+    "type": "category",
+    "values": [
+      "acute",
+      "chronic"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Respiratory Rate": {
+    "type": "number_or_category",
+    "values": [
+      "bradypnoic",
+      "eupnoic",
+      "tachypnoic"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Respiratory failure": {
+    "type": "category",
+    "values": [
+      "acute",
+      "chronic"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "SARS-CoV-2 swab test": {
+    "type": "category",
+    "values": [
+      "NEG",
+      "POS"
+    ],
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Serum creatine kinase": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Severe Anemia": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "Situation description, like coughing, straining, sudden abdominal pain, phlebotomy": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Situational syncope": {
+    "type": "YN",
+    "group": "Diagnosis",
+    "allow_followup": false
+  },
+  "SpO2 in AA": {
+    "type": "number_or_YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "SpO2 in O2 therapy": {
+    "type": "number_or_YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Speed with which the patient recovered consciousness": {
+    "type": "category",
+    "values": [
+      "fast (seconds)",
+      "slow (minutes-hours)"
+    ],
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Stiffness during the episode": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Supine-to-standing systolic blood pressure test": {
+    "type": "number_or_category",
+    "values": [
+      "NEG",
+      "POS"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Systolic blood pressure": {
+    "type": "number_or_category",
+    "values": [
+      "hypertensive",
+      "hypothesised",
+      "normotensive"
+    ],
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "TLoC during effort": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "TLoC in unknown circumstances": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "TLoC while supine": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Thoracic ultrasound, any abnormalities": {
+    "type": "number_or_YN",
+    "group": "Imaging test results",
+    "allow_followup": false
+  },
+  "Tongue bite": {
+    "type": "YN",
+    "group": "Clinical examination",
+    "allow_followup": false
+  },
+  "Tonic-clonic seizures": {
+    "type": "YN",
+    "group": "History taking",
+    "allow_followup": false
+  },
+  "Transaminases": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Troponin": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "Urine drug test": {
+    "type": "YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  },
+  "pH": {
+    "type": "number_or_YN",
+    "group": "Lab test results",
+    "allow_followup": false
+  }
+}
