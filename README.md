@@ -179,8 +179,4 @@ The directory also contains supporting diagnostics:
 
 ## Citation
 
-Citation information is intentionally withheld during anonymous review. If you use this repository, please cite the paper once the de-anonymized reference becomes available.
-
-## License
-
-A license has not yet been included in this anonymous release. Unless a license is added, the code should be treated as available for review and reproducibility inspection only; no broader permission is granted.
+The paper has ben accepted to EACL 2026. The citation bibitex will be released as soon as the conference proceedings will be available.
