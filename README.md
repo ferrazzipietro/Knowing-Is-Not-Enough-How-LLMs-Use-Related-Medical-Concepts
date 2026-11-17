@@ -1,6 +1,6 @@
-# Knowing You Might Need It Is Not Enough
+# Knowing Is Not Enough: How LLMs Use Related Medical Concepts in Clinical Note Information Extraction
 
-Code accompanying the anonymous short-paper submission **“Knowing You Might Need It Is Not Enough: How LLMs Use Related Medical Concepts in Clinical Note Information Extraction.”**
+Code accompanying the anonymous short-paper submission **“Knowing Is Not Enough: How LLMs Use Related Medical Concepts in Clinical Note Information Extraction”** (EACL 2027, Athens, Greece)
 
 This repository evaluates instruction-tuned language models on clinical-note information extraction framed as question answering over case report form (CRF) items. In particular, the experiments study whether supplying the value of a related medical concept helps a model extract a target concept, and whether the source and correctness of that related value matter.
 
