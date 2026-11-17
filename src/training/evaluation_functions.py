@@ -1,8 +1,8 @@
 from collections import defaultdict
 
-import evaluate
-f1 = evaluate.load("f1")
-accuracy = evaluate.load("accuracy")
+# Evaluation uses the local metrics below; importing this module needs no HF downloads.
+
+TRAILING_ANSWER_PUNCTUATION = " \t\r\n.,:;!?*_-`'\"<>|/\\()[]{}"
 
 
 def split_sequence_at_special_tokens(sequence, special_token_sequence, SPECIAL_TOKENS):
@@ -43,6 +43,45 @@ def _try_parse_number(x):
         return float(x)
     except (TypeError, ValueError):
         return None
+
+
+def normalize_prediction(text, options):
+    """Remove categorical suffix fragments using options only, never gold.
+
+    Accept punctuation or one alphabetic fragment separated by whitespace or
+    starting with an uppercase letter. Preserve numbers and ambiguous answers.
+    ``number`` is a placeholder, not a categorical answer to extract.
+    """
+    if options is None or text in options or _try_parse_number(text) is not None:
+        return text
+    categorical_options = {
+        option for option in options
+        if option and option != "number" and _try_parse_number(option) is None
+    }
+
+    def accepted_suffix(suffix):
+        fragment = suffix.strip(TRAILING_ANSWER_PUNCTUATION)
+        if fragment in {"", "The"}:
+            return True
+        # Do not discard a second answer, even when it is glued to the first.
+        if fragment in categorical_options or fragment in {"Y", "N", "A", "P", "U", "V"}:
+            return False
+        if fragment.lower() in {"yes", "no", "unknown"}:
+            return False
+        if "/" in suffix or "|" in suffix:
+            return False
+        # Whitespace or capitalization marks a plausible extra word/token
+        # fragment. Lowercase continuations such as Nega remain untouched.
+        return fragment.isalpha() and (
+            suffix[0].isspace() or fragment[0].isupper()
+        )
+
+    matches = [
+        option for option in categorical_options
+        if text.startswith(option)
+        and accepted_suffix(text[len(option):])
+    ]
+    return matches[0] if len(matches) == 1 else text
 
 
 def _compute_metrics(gold, pred, accepted_diff=0):
@@ -119,13 +158,15 @@ def compute_metrics_crf_gamma(
     verbose: bool = True,
     tokenizer=None,
     prediction_records: list | None = None,
+    options_list_in_dataset_validation: list | None = None,
+    options_list_in_dataset_test: list | None = None,
 ):
     """
     Compute evaluation metrics for the CRF extraction task during training.
 
-    Signature is identical to evaluation_functions.compute_metrics_crf.
-    The returned dict adds an "accuracy" key and derives all F1 scores from
-    the custom metric logic in evaluation.py rather than the HF evaluate library.
+    Existing metric keys score normalized answers; ``strict_`` keys score the
+    original decoded answers. Options must align with their respective splits;
+    when options are unavailable, predictions are left unchanged.
     """
     if tokenizer is None:
         raise ValueError("tokenizer must be provided for compute_metrics_crf_gamma.")
@@ -214,16 +255,31 @@ def compute_metrics_crf_gamma(
     pred_str = _decode_or_join(true_predictions, "__invalid__")
     label_str = _decode_or_join(true_labels, "__missing__")
 
+    if len(items_list_in_dataset_validation) == len(label_str):
+        record_items = items_list_in_dataset_validation
+        record_options = options_list_in_dataset_validation
+    elif len(items_list_in_dataset_test) == len(label_str):
+        record_items = items_list_in_dataset_test
+        record_options = options_list_in_dataset_test
+    else:
+        record_items = None
+        record_options = None
+    if record_options is not None and len(record_options) != len(label_str):
+        raise ValueError("Options must have one entry per evaluation example.")
+
+    pred_str_raw = pred_str
+    pred_str = [
+        normalize_prediction(text, options)
+        for text, options in zip(
+            pred_str_raw,
+            record_options if record_options is not None else [None] * len(pred_str_raw),
+        )
+    ]
+
     # Optionally expose the decoded examples to evaluation entrypoints that
     # need to persist predictions in addition to aggregate metrics. Mutating a
     # caller-owned list keeps the Trainer-compatible return value unchanged.
     if prediction_records is not None:
-        if len(items_list_in_dataset_validation) == len(label_str):
-            record_items = items_list_in_dataset_validation
-        elif len(items_list_in_dataset_test) == len(label_str):
-            record_items = items_list_in_dataset_test
-        else:
-            record_items = [None] * len(label_str)
         prediction_records.clear()
         prediction_records.extend(
             {
@@ -231,9 +287,17 @@ def compute_metrics_crf_gamma(
                 "crf_item": item,
                 "gold": gold,
                 "prediction": prediction,
+                "prediction_raw": raw,
+                "options": options,
             }
-            for index, (item, gold, prediction) in enumerate(
-                zip(record_items, label_str, pred_str)
+            for index, (item, gold, prediction, raw, options) in enumerate(
+                zip(
+                    record_items if record_items is not None else [None] * len(label_str),
+                    label_str,
+                    pred_str,
+                    pred_str_raw,
+                    record_options if record_options is not None else [None] * len(label_str),
+                )
             )
         )
 
@@ -241,6 +305,22 @@ def compute_metrics_crf_gamma(
         print("One prediction (str):", pred_str[0])
         print("One label (str):", label_str[0])
 
+    if calc_per_item and record_items is None:
+        print(
+            "Warning: Length of items list does not match evaluation examples. "
+            "Skipping per-item F1 calculation."
+        )
+    metrics = _prediction_metrics(label_str, pred_str, record_items, calc_per_item)
+    strict_metrics = _prediction_metrics(label_str, pred_str_raw, record_items, calc_per_item)
+    metrics.update({f"strict_{key}": value for key, value in strict_metrics.items()})
+    metrics["AAA_postprocessed_predictions"] = sum(
+        raw != normalized for raw, normalized in zip(pred_str_raw, pred_str)
+    )
+    return metrics
+
+
+def _prediction_metrics(label_str, pred_str, items=None, calc_per_item=True):
+    """Score either raw or normalized strings with the same metric definitions."""
     # Global metrics
     accuracy, macro_f1, micro_f1, weighted_f1, per_class_f1 = _compute_metrics(label_str, pred_str)
 
@@ -266,29 +346,17 @@ def compute_metrics_crf_gamma(
 
     # Per-item metrics
     f1_scores_per_item = None
-    if calc_per_item:
-        if len(items_list_in_dataset_validation) == len(label_str):
-            items_list = items_list_in_dataset_validation
-        elif len(items_list_in_dataset_test) == len(label_str):
-            items_list = items_list_in_dataset_test
-        else:
-            print(
-                "Warning: Length of items list in dataset does not match number of "
-                "predictions. Skipping per-item F1 calculation."
-            )
-            items_list = None
+    if calc_per_item and items is not None:
+        gold_per_item: dict[str, list] = defaultdict(list)
+        pred_per_item: dict[str, list] = defaultdict(list)
+        for item, g, p in zip(items, label_str, pred_str):
+            gold_per_item[item].append(g)
+            pred_per_item[item].append(p)
 
-        if items_list is not None:
-            gold_per_item: dict[str, list] = defaultdict(list)
-            pred_per_item: dict[str, list] = defaultdict(list)
-            for item, g, p in zip(items_list, label_str, pred_str):
-                gold_per_item[item].append(g)
-                pred_per_item[item].append(p)
-
-            f1_scores_per_item = {}
-            for item in gold_per_item:
-                _, item_macro, _, _, _ = _compute_metrics(gold_per_item[item], pred_per_item[item])
-                f1_scores_per_item[item] = item_macro
+        f1_scores_per_item = {}
+        for item in gold_per_item:
+            _, item_macro, _, _, _ = _compute_metrics(gold_per_item[item], pred_per_item[item])
+            f1_scores_per_item[item] = item_macro
 
     return {
         "AAA_accuracy": accuracy,
